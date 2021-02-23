@@ -11,6 +11,8 @@ import com.google.api.client.util.DateTime;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.CalendarScopes;
+import com.google.api.services.calendar.model.CalendarList;
+import com.google.api.services.calendar.model.CalendarListEntry;
 import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.Events;
 
@@ -19,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
+import java.util.Scanner;
 import java.util.Collections;
 import java.util.List;
 
@@ -65,26 +68,61 @@ public class CalendarQuickstart {
                 .setApplicationName(APPLICATION_NAME)
                 .build();
 
-        // List the next 10 events from the primary calendar.
-        DateTime now = new DateTime(System.currentTimeMillis());
-        Events events = service.events().list("primary")
-                .setMaxResults(10)
-                .setTimeMin(now)
-                .setOrderBy("startTime")
-                .setSingleEvents(true)
-                .execute();
-        List<Event> items = events.getItems();
-        if (items.isEmpty()) {
-            System.out.println("No upcoming events found.");
-        } else {
-            System.out.println("Upcoming events");
-            for (Event event : items) {
-                DateTime start = event.getStart().getDateTime();
-                if (start == null) {
-                    start = event.getStart().getDate();
+        float hoursPerDay = 24;
+        Scanner userSetup = new Scanner(System.in);
+
+        System.out.print("Set minimum sleeping time: ");
+        float minSleepingTime_perDay = userSetup.nextFloat();
+        System.out.println("Your minimum sleeping time: " + minSleepingTime_perDay);
+        System.out.print("Set daily work hours: ");
+        float workHours_perDay = userSetup.nextFloat();
+        System.out.println("Your daily working hours: " + workHours_perDay);
+        System.out.print("Set break time: ");
+        float breakTime_perDay = userSetup.nextFloat();
+        System.out.println("Your break time: " + breakTime_perDay);
+        float hoursLeft_perDay = hoursPerDay - (minSleepingTime_perDay + workHours_perDay + breakTime_perDay);
+        float finalHoursLeft_perDay = hoursLeft_perDay;
+        int hours = (int) finalHoursLeft_perDay;
+        int minutes = (int) (finalHoursLeft_perDay * 60) % 60;
+        int seconds = (int) (finalHoursLeft_perDay * (60*60)) % 60;
+        System.out.println("Left hours: " + (String.format("%s(h) %s(m) %s(s)", hours, minutes, seconds)));
+        float bufferTime = hoursLeft_perDay * (workHours_perDay / hoursPerDay);
+        float finalBufferTime = bufferTime;
+        int hours2 = (int) finalBufferTime;
+        int minutes2 = (int) (finalBufferTime * 60) % 60;
+        int seconds2 = (int) (finalBufferTime * (60*60)) % 60;
+        System.out.println("Your buffer time: " + (String.format("%s(h) %s(m) %s(s)", hours2, minutes2, seconds2)));
+
+        CalendarList calList = service.calendarList().list().execute();
+
+        List<CalendarListEntry> listCal = calList.getItems();
+
+        for (CalendarListEntry entry : listCal) {
+            System.out.println("Calendar: " + entry.getId());
+            // List the next 2 weeks events from all calendars.
+            DateTime current = new DateTime(System.currentTimeMillis());
+            DateTime added = new DateTime(System.currentTimeMillis() + 1209600000);
+            Events events = service.events().list(entry.getId())
+                    .setMaxResults(10)
+                    .setTimeMin(current)
+                    .setTimeMax(added)
+                    .setOrderBy("startTime")
+                    .setSingleEvents(true)
+                    .execute();
+            List<Event> items = events.getItems();
+            if (items.isEmpty()) {
+                System.out.println("No upcoming events found.");
+            } else {
+                System.out.println("Upcoming events");
+                for (Event event : items) {
+                    DateTime start = event.getStart().getDateTime();
+                    if (start == null) {
+                        start = event.getStart().getDate();
+                    }
+                    System.out.printf("%s (%s)\n", event.getSummary(), start);
                 }
-                System.out.printf("%s (%s)\n", event.getSummary(), start);
             }
+            //scanner here?
         }
     }
 }
