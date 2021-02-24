@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
-import java.util.Scanner;
 import java.util.Collections;
 import java.util.List;
 
@@ -68,30 +67,17 @@ public class CalendarQuickstart {
                 .setApplicationName(APPLICATION_NAME)
                 .build();
 
-        float hoursPerDay = 24;
-        Scanner userSetup = new Scanner(System.in);
 
-        System.out.print("Set minimum sleeping time: ");
-        float minSleepingTime_perDay = userSetup.nextFloat();
-        System.out.println("Your minimum sleeping time: " + minSleepingTime_perDay);
-        System.out.print("Set daily work hours: ");
-        float workHours_perDay = userSetup.nextFloat();
-        System.out.println("Your daily working hours: " + workHours_perDay);
-        System.out.print("Set break time: ");
-        float breakTime_perDay = userSetup.nextFloat();
-        System.out.println("Your break time: " + breakTime_perDay);
-        float hoursLeft_perDay = hoursPerDay - (minSleepingTime_perDay + workHours_perDay + breakTime_perDay);
-        float finalHoursLeft_perDay = hoursLeft_perDay;
-        int hours = (int) finalHoursLeft_perDay;
-        int minutes = (int) (finalHoursLeft_perDay * 60) % 60;
-        int seconds = (int) (finalHoursLeft_perDay * (60*60)) % 60;
-        System.out.println("Left hours: " + (String.format("%s(h) %s(m) %s(s)", hours, minutes, seconds)));
-        float bufferTime = hoursLeft_perDay * (workHours_perDay / hoursPerDay);
-        float finalBufferTime = bufferTime;
-        int hours2 = (int) finalBufferTime;
-        int minutes2 = (int) (finalBufferTime * 60) % 60;
-        int seconds2 = (int) (finalBufferTime * (60*60)) % 60;
-        System.out.println("Your buffer time: " + (String.format("%s(h) %s(m) %s(s)", hours2, minutes2, seconds2)));
+        //initializing the object TimeData
+        TimeData timeData = new TimeData();
+
+        //calculating buffer time out of user input and converting the time to hours, minutes and seconds
+        timeData.TimeInputReceiver();
+        timeData.BufferTimeCalculator();
+        System.out.print("Free time left in a day: ");
+        timeData.ConvertToTime(timeData.hoursLeftPerDay);
+        System.out.print("Your buffer time is: ");
+        timeData.ConvertToTime(timeData.bufferTime);
 
         CalendarList calList = service.calendarList().list().execute();
 
@@ -103,7 +89,6 @@ public class CalendarQuickstart {
             DateTime current = new DateTime(System.currentTimeMillis());
             DateTime added = new DateTime(System.currentTimeMillis() + 1209600000);
             Events events = service.events().list(entry.getId())
-                    .setMaxResults(10)
                     .setTimeMin(current)
                     .setTimeMax(added)
                     .setOrderBy("startTime")
