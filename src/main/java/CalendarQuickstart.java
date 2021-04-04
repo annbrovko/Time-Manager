@@ -23,6 +23,7 @@ import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
+import java.util.*;
 
 public class CalendarQuickstart {
     /*
@@ -64,6 +65,7 @@ public class CalendarQuickstart {
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
     }
     */
+
 
     public static void main(String... args) throws IOException, GeneralSecurityException {
         // Build a new authorized API client service.
@@ -113,10 +115,66 @@ public class CalendarQuickstart {
             }
         }
     }
-         */
+
+
+        // time interval, add tasks, push tasks, exit
+        int option = 0;
+        while (option != 4){
+            renderMenu();
+        }
+*/
+
+        Tasks tasks = new Tasks();
+
+        Scanner scan = new Scanner(System.in);
+
+
+        boolean exit = false;
+
+        String userChoice;
+
+        while (!exit) {
+            renderMenu();
+            userChoice = scan.nextLine();
+
+            switch (userChoice) {
+                case "1":
+                    break;
+                case "2":
+                    tasks.addTask();
+                    break;
+                case "3":
+                    break;
+                case "4":
+                    tasks.showListOfTasks();
+                    break;
+                case "5":
+                    exit = true;
+                    System.out.println("See you!");
+                    break;
+                default:
+                    System.out.println("Wrong choice, try again!");
+                    break;
+            }
+        }
+/*
+
 
         // push new event to the calendar
         CalendarEvents calendarEvents = new CalendarEvents();
         calendarEvents.createEvent();
+ */
     }
+
+
+    public static void renderMenu(){
+        System.out.println("Scheduling Menu");
+        System.out.println("1. Set you working time interval");
+        System.out.println("2. Add new task");
+        System.out.println("3. Send tasks to the calendar");
+        System.out.println("4. Show all entered tasks");
+        System.out.println("5. Exit");
+
+    }
+
 }

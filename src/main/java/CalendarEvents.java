@@ -6,9 +6,7 @@ import jdk.tools.jlink.internal.DirArchive;
 import javax.sound.midi.Soundbank;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Scanner;
+import java.util.*;
 import java.text.ParseException;
 
 public class CalendarEvents {
@@ -27,6 +25,8 @@ public class CalendarEvents {
         long durationHoursInMillis = eventDurationHours * MILLISECONDS_IN_HOUR;
         long durationMinutesInMillis = eventDurationMinutes * MILLISECONDS_IN_MINUTE;
         String taskDeadline = this.scanner.nextLine();
+        List<Float> activityDurationList = new ArrayList<Float>();
+
 
         // formatting the string into a date
         /*
@@ -54,8 +54,14 @@ public class CalendarEvents {
             e.printStackTrace();
         }
     }
+/*
+    public void listOfActivities()
+    {
+        List<Float> activityDurationList = new ArrayList<Float>();
+        activityDurationList.add();
+    }
     // calendar type
-
+*/
     private Event setStartDate(Event event, DateTime startDateTime)
     {
         EventDateTime start = new EventDateTime()

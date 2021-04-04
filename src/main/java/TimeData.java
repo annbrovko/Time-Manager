@@ -1,5 +1,7 @@
 import com.google.api.services.calendar.model.EventDateTime;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class TimeData {
@@ -38,7 +40,4 @@ public class TimeData {
         System.out.println((String.format("%s(h) %s(m) %s(s)", hours, minutes, seconds)));
     }
 
-    public void getOriginalStartTime() {
-
-    }
 }
