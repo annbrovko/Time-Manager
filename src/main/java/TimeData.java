@@ -1,8 +1,9 @@
-import com.google.api.services.calendar.model.EventDateTime;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Calendar;
 import java.util.Scanner;
+
 
 public class TimeData {
     protected final float HOURS_PER_DATE = 24;
@@ -14,6 +15,7 @@ public class TimeData {
 
     Scanner userSetup = new Scanner(System.in);
 
+
     public void TimeInputReceiver() {
         System.out.print("Set minimum sleeping time: ");
         minSleepingTimePerDay = this.userSetup.nextFloat();
@@ -24,6 +26,22 @@ public class TimeData {
         System.out.print("Set break time: ");
         breakTimePerDay = this.userSetup.nextFloat();
     }
+
+    public static Date convertToDate(String dateStr) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date deadline = formatter.parse(dateStr);
+        return deadline;
+    }
+
+/*
+    public static void convertToCalDate(String dateStr) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date deadline = formatter.parse(dateStr);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(deadline);
+    }
+
+ */
 
     public void BufferTimeCalculator() {
         //first calculate how much time the user has left in a day

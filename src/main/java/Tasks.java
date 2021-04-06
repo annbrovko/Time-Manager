@@ -1,5 +1,10 @@
+import com.google.api.client.util.DateTime;
+
+import java.text.ParseException;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.Date;
 
 public class Tasks {
 
@@ -23,13 +28,15 @@ public class Tasks {
 
     LinkedList listOfTasks = new LinkedList();
 
-    public void addTask(){
+    public void addTask() throws ParseException {
 
         boolean exit = false;
         String title;
         float duration;
         String userExit;
         String priority;
+        String dateStr;
+        Date deadline = null;
 
         while (!exit) {
             System.out.println("Create a new task!");
@@ -41,7 +48,9 @@ public class Tasks {
             duration = scan.nextFloat();
             scan.nextLine();
 
-            System.out.println("Set deadline for your task: ");
+            System.out.println("Set deadline for your task (YYYY-MM-DD HH:MM): ");
+            dateStr = scan.nextLine();
+            deadline = TimeData.convertToDate(dateStr);
 
             System.out.println("Set priority HIGH, MEDIUM or LOW:");
             priority = scan.nextLine();
@@ -50,7 +59,7 @@ public class Tasks {
             System.out.println("Add one more or exit?");
             userExit = scan.nextLine();
 
-            Task task = new Task(title, duration, priorityValue);
+            Task task = new Task(title, duration, priorityValue, deadline);
             this.listOfTasks.add(task);
 
             if (userExit.equals("exit")) {

@@ -15,6 +15,7 @@ public class CalendarEvents {
     protected final long MILLISECONDS_IN_10_SEC = 10000;
     Scanner scanner = new Scanner(System.in);
 
+    /*
     public void createEvent(){
         System.out.println("Enter an event title: ");
         String eventTitle = this.scanner.nextLine();
@@ -26,7 +27,7 @@ public class CalendarEvents {
         long durationMinutesInMillis = eventDurationMinutes * MILLISECONDS_IN_MINUTE;
         String taskDeadline = this.scanner.nextLine();
         List<Float> activityDurationList = new ArrayList<Float>();
-
+*/
 
         // formatting the string into a date
         /*
@@ -38,6 +39,7 @@ public class CalendarEvents {
             e.printStackTrace();
         }
          */
+    /*
         // TODO here will be the calculation to place the event into the calendar
 
         DateTime current = new DateTime(System.currentTimeMillis() + MILLISECONDS_IN_10_SEC);
@@ -54,6 +56,27 @@ public class CalendarEvents {
             e.printStackTrace();
         }
     }
+
+    public DateTime sendTaskToCalendar(Task task){
+        GoogleCalendar googleCalendar = new GoogleCalendar();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(task.getDeadline());
+        DateTime current = new DateTime(System.currentTimeMillis() + MILLISECONDS_IN_10_SEC);
+        DateTime startTime = new DateTime(cal.add(Calendar.HOUR, -2));
+
+
+        Event newEvent = googleCalendar.initiateGoogleEvent(task.getTitle());
+        newEvent = setStartDate(newEvent, current);
+        newEvent = setEndDate(newEvent, task.getDeadline());
+
+        try {
+            googleCalendar.service.events().insert("cs.semesterproject@gmail.com", newEvent).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+     */
 /*
     public void listOfActivities()
     {
