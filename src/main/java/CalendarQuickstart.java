@@ -134,7 +134,7 @@ public class CalendarQuickstart {
         boolean exit = false;
 
         String userChoice;
-
+        // create main menu for the user
         while (!exit) {
             renderMenu();
             userChoice = scan.nextLine();

@@ -1,9 +1,9 @@
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Calendar;
-import java.util.Scanner;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
+import java.text.ParseException;
+import java.util.Scanner;
 
 public class TimeData {
     protected final float HOURS_PER_DATE = 24;
@@ -14,7 +14,6 @@ public class TimeData {
     protected float bufferTime;
 
     Scanner userSetup = new Scanner(System.in);
-
 
     public void TimeInputReceiver() {
         System.out.print("Set minimum sleeping time: ");
@@ -27,22 +26,21 @@ public class TimeData {
         breakTimePerDay = this.userSetup.nextFloat();
     }
 
-    public static Date convertToDate(String dateStr) throws ParseException {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        Date deadline = formatter.parse(dateStr);
+    // convert deadline input into date&time of type Date
+    public static DateTime convertToDate(String deadlineStr) throws ParseException {
+        DateTimeFormatter formatterDate = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm");
+        DateTime deadline = formatterDate.parseDateTime(deadlineStr);
         return deadline;
     }
 
-/*
-    public static void convertToCalDate(String dateStr) throws ParseException {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        Date deadline = formatter.parse(dateStr);
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(deadline);
+    // convert duration input into time of type Date
+    public static DateTime convertToTime(String durationStr) throws ParseException {
+        DateTimeFormatter formatterTime = DateTimeFormat.forPattern("HH:mm");
+        DateTime duration = formatterTime.parseDateTime(durationStr);
+        return duration;
     }
 
- */
-
+    // calculate buffer time for a task (event)
     public void BufferTimeCalculator() {
         //first calculate how much time the user has left in a day
         this.hoursLeftPerDay = HOURS_PER_DATE - (this.minSleepingTimePerDay + this.workHoursPerDay + this.breakTimePerDay);
@@ -57,5 +55,4 @@ public class TimeData {
         int seconds = (int) (x * (60 * 60)) % 60;
         System.out.println((String.format("%s(h) %s(m) %s(s)", hours, minutes, seconds)));
     }
-
 }
