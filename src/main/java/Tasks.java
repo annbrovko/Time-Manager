@@ -59,7 +59,7 @@ public class Tasks {
             System.out.println("Set title for your task: ");
             title = scan.nextLine();
 
-            System.out.println("Set duration for your task: ");
+            System.out.println("Set duration for your task (HH:MM): ");
             durationStr = scan.nextLine();
             duration = TimeData.convertToTime(durationStr);
 

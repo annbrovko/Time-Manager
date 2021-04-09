@@ -34,8 +34,8 @@ public class Task {
     public String toString(){
         String result = "";
         deadlineToStr = this.deadline.getYear() + "/" + this.deadline.getMonthOfYear() + "/" + this.deadline.getDayOfMonth() + " " + this.deadline.getHourOfDay() + ":" + this.deadline.getMinuteOfHour();
-        durationToStr = this.duration.getHourOfDay() + ":" + this.duration.getMinuteOfDay();
-        latestStartToStr = this.latestStart.getYear() + "/" + this.latestStart.getMonthOfYear() + "/"+ this.latestStart.getDayOfMonth() + " " + this.latestStart.getHourOfDay() + ":" + this.latestStart.getMinuteOfDay();
+        durationToStr = this.duration.getHourOfDay() + ":" + this.duration.getMinuteOfHour();
+        latestStartToStr = this.latestStart.getYear() + "/" + this.latestStart.getMonthOfYear() + "/"+ this.latestStart.getDayOfMonth() + " " + this.latestStart.getHourOfDay() + ":" + this.latestStart.getMinuteOfHour();
         result = "\nTask title: " + this.title + "\nTask priority: " + this.priority + "\nTask duration: " + this.durationToStr + "\nTask deadline: " + this.deadlineToStr + "\nLatest start time: " + this.latestStartToStr;
         return result;
     }
