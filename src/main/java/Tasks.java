@@ -81,7 +81,6 @@ public class Tasks {
 
             // calculate the latest start time and date for this task
             DateTime latestStart = new DateTime(deadline.minus(duration));
-            System.out.println(latestStart);
 
             // ask for the priority until the format is compatible
             boolean isPriorityEnum = false;
