@@ -1,7 +1,6 @@
-import org.joda.time.DateTime;
+import org.joda.time.*;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-
 import java.text.ParseException;
 import java.util.Scanner;
 
@@ -14,7 +13,7 @@ public class TimeData {
     protected float bufferTime;
 
     Scanner userSetup = new Scanner(System.in);
-
+/*
     public void TimeInputReceiver() {
         System.out.print("Set minimum sleeping time: ");
         minSleepingTimePerDay = this.userSetup.nextFloat();
@@ -26,18 +25,32 @@ public class TimeData {
         breakTimePerDay = this.userSetup.nextFloat();
     }
 
-    // convert deadline input into date&time of type Date
+ */
+
+    // convert deadline input into date&time of type DateTime
     public static DateTime convertToDate(String deadlineStr) throws ParseException {
-        DateTimeFormatter formatterDate = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm");
-        DateTime deadline = formatterDate.parseDateTime(deadlineStr);
-        return deadline;
+        try {
+            DateTimeFormatter formatterDate = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm");
+            DateTime deadline = formatterDate.parseDateTime(deadlineStr);
+            return deadline;
+        }
+        catch (Exception e){
+            System.out.println("Wrong date type! Try again...");
+            return null;
+        }
     }
 
-    // convert duration input into time of type Date
+    // convert duration input into time of type DateTime
     public static DateTime convertToTime(String durationStr) throws ParseException {
-        DateTimeFormatter formatterTime = DateTimeFormat.forPattern("HH:mm");
-        DateTime duration = formatterTime.parseDateTime(durationStr);
-        return duration;
+        try {
+            DateTimeFormatter formatterTime = DateTimeFormat.forPattern("HH:mm");
+            DateTime duration = formatterTime.parseDateTime(durationStr);
+            return duration;
+        }
+        catch (Exception e){
+            System.out.println("Wrong time type! Try again...");
+            return null;
+        }
     }
 
     // calculate buffer time for a task (event)

@@ -2,6 +2,7 @@ import com.google.api.client.util.DateTime;
 import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.EventDateTime;
 import jdk.tools.jlink.internal.DirArchive;
+import org.joda.time.*;
 
 import javax.sound.midi.Soundbank;
 import java.io.IOException;
@@ -10,12 +11,12 @@ import java.util.*;
 import java.text.ParseException;
 
 public class CalendarEvents {
-    protected final long MILLISECONDS_IN_MINUTE = 60000;
+   /* protected final long MILLISECONDS_IN_MINUTE = 60000;
     protected final long MILLISECONDS_IN_HOUR = 3600000;
     protected final long MILLISECONDS_IN_10_SEC = 10000;
     Scanner scanner = new Scanner(System.in);
 
-    /*
+
     public void createEvent(){
         System.out.println("Enter an event title: ");
         String eventTitle = this.scanner.nextLine();
@@ -56,9 +57,15 @@ public class CalendarEvents {
         }
     }
 */
+    public void pushEventsToCalendar(){
+        TimeData timeData = new TimeData();
+        Tasks tasks = new Tasks();
+
+        //DateTime deadlineGoogle = timeData.
+    }
 
 
-    public Date substractHoursFromDate(Date deadline, int hours) {
+    public Date subtractHoursFromDate(Date deadline, int hours) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(deadline);
         calendar.add(Calendar.HOUR_OF_DAY, -hours);

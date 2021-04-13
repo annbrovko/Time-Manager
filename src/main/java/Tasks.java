@@ -1,11 +1,7 @@
-
 import org.joda.time.*;
-
-import java.sql.Time;
 import java.text.ParseException;
 import java.util.LinkedList;
 import java.util.Scanner;
-import java.util.Date;
 
 public class Tasks {
     //DateTime dateTime = new DateTime();
@@ -16,7 +12,7 @@ public class Tasks {
         MEDIUM(2),
         HIGH(1);
 
-        private int value;
+        private final int value;
 
         priorityEnum(int value) {
             this.value = value;
@@ -33,18 +29,15 @@ public class Tasks {
     // create a linked list to store tasks entered by the user
     LinkedList listOfTasks = new LinkedList();
 
-
     String title;
     String userExit;
     String priority;
     String deadlineStr;
     String durationStr;
     DateTime deadline;
-    DateTime duration;
-    final int MAX_MIN = 59;
-    final int MAX_HOURS = 23;
-    int durationMin;
-    int durationHours;
+    Duration duration;
+    final int MILLIS_IN_MIN = 60000;
+    final int MILLIS_IN_HOUR = 3600000;
     
     // create method that will create a task with parameters from the user
     public void addTask() throws ParseException {
@@ -59,23 +52,49 @@ public class Tasks {
             System.out.println("Set title for your task: ");
             title = scan.nextLine();
 
-            System.out.println("Set duration for your task (HH:MM): ");
-            durationStr = scan.nextLine();
-            duration = TimeData.convertToTime(durationStr);
+            // try asking for duration until the format is compatible
+            duration = null;
+            do {
+                System.out.println("Set duration for your task (HH:MM): ");
+                durationStr = scan.nextLine();
+                String[] exploded = durationStr.split(":");
+                try {
+                    int hours = Integer.parseInt(exploded[0]);
+                    int minutes = Integer.parseInt(exploded[1]);
+                    long hoursMillis = (long)hours * MILLIS_IN_HOUR;
+                    long minutesMillis = (long)minutes * MILLIS_IN_MIN;
+                    duration = new Duration(hoursMillis + minutesMillis);
+                } catch (Exception e){
+                    System.out.println("Something went wrong! Try again...");
+                }
+            } while (duration == null);
 
+            // try asking for deadline until the format is compatible
+            deadline = null;
+            do {
+                System.out.println("Set deadline for your task (DD/MM/YYYY HH:MM): ");
+                deadlineStr = scan.nextLine();
+                deadline = TimeData.convertToDate(deadlineStr);
+            } while (deadline == null);
 
-            System.out.println("Set deadline for your task (DD-MM-YYYY HH:MM): ");
-            deadlineStr = scan.nextLine();
-            deadline = TimeData.convertToDate(deadlineStr);
-
-            System.out.println("Latest start point: ");
-            DateTime latestStart = new DateTime(deadline.minusHours(duration.getHourOfDay()).minusMinutes(duration.getMinuteOfHour()));
+            // calculate the latest start time and date for this task
+            DateTime latestStart = new DateTime(deadline.minus(duration));
             System.out.println(latestStart);
 
 
-            System.out.println("Set priority HIGH, MEDIUM or LOW:");
-            priority = scan.nextLine();
-            int priorityValue = priorityEnum.valueOf(priority.toUpperCase()).getValue();
+            boolean isPriorityEnum = false;
+            int priorityValue = 0;
+            do {
+                try {
+                    System.out.println("Set priority HIGH, MEDIUM or LOW:");
+                    priority = scan.nextLine();
+                    priorityValue = priorityEnum.valueOf(priority.toUpperCase()).getValue();
+                    isPriorityEnum = true;
+                } catch (Exception e){
+                    System.out.println("Something went wrong, try again!");
+                }
+            } while (!isPriorityEnum);
+
 
             System.out.println("Add one more or exit?");
             userExit = scan.nextLine();
