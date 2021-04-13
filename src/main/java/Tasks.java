@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 public class Tasks {
-    //DateTime dateTime = new DateTime();
 
     // create a variable for priority of type ENUM, so the final user input will have a value to be stores in the linkedList of tasks
     enum priorityEnum{
@@ -24,7 +23,6 @@ public class Tasks {
     }
 
     Scanner scan = new Scanner(System.in);
-    //Duration due = new Duration();
 
     // create a linked list to store tasks entered by the user
     LinkedList listOfTasks = new LinkedList();
@@ -72,16 +70,20 @@ public class Tasks {
             // try asking for deadline until the format is compatible
             deadline = null;
             do {
-                System.out.println("Set deadline for your task (DD/MM/YYYY HH:MM): ");
-                deadlineStr = scan.nextLine();
-                deadline = TimeData.convertToDate(deadlineStr);
+                try {
+                    System.out.println("Set deadline for your task (DD/MM/YYYY HH:MM): ");
+                    deadlineStr = scan.nextLine();
+                    deadline = TimeData.convertToDate(deadlineStr);
+                } catch (Exception e){
+                    System.out.println("Deadline format is wrong! Try again...");
+                }
             } while (deadline == null);
 
             // calculate the latest start time and date for this task
             DateTime latestStart = new DateTime(deadline.minus(duration));
             System.out.println(latestStart);
 
-
+            // ask for the priority until the format is compatible
             boolean isPriorityEnum = false;
             int priorityValue = 0;
             do {
@@ -95,10 +97,11 @@ public class Tasks {
                 }
             } while (!isPriorityEnum);
 
-
+            // ask user if add a new task - if exit, go to main menu
             System.out.println("Add one more or exit?");
             userExit = scan.nextLine();
 
+            // add the entered task into the linkedlist of tasks
             Task task = new Task(title, duration, priorityValue, deadline, latestStart);
             this.listOfTasks.add(task);
 
@@ -115,8 +118,9 @@ public class Tasks {
             System.out.println("No tasks to show");
             return;
         }
+
+        // loop through the linkedlist of tasks and print each of them
         for (int i = 0; i < this.listOfTasks.size(); i++)
             System.out.println(this.listOfTasks.get(i));
-
     }
 }
