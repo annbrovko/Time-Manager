@@ -23,12 +23,9 @@ public class User implements TimeManagement {
 
         System.out.println("Create password: ");
         this.password = scanner.nextLine();
-
-
     }
 
     @Override
     public void login() {
-
     }
 }

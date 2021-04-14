@@ -96,15 +96,7 @@ public class CalendarQuickstart {
             }
         }
     }
-
-
-        // time interval, add tasks, push tasks, exit
-        int option = 0;
-        while (option != 4){
-            renderMenu();
-        }
 */
-
         Tasks tasks = new Tasks();
         CalendarEvents calendarEvents = new CalendarEvents();
 
@@ -140,14 +132,11 @@ public class CalendarQuickstart {
             }
         }
 /*
-
-
         // push new event to the calendar
         CalendarEvents calendarEvents = new CalendarEvents();
         calendarEvents.createEvent();
  */
     }
-
 
     public static void renderMenu(){
         System.out.println("Scheduling Menu");
@@ -156,7 +145,5 @@ public class CalendarQuickstart {
         System.out.println("3. Send tasks to the calendar");
         System.out.println("4. Show all entered tasks");
         System.out.println("5. Exit");
-
     }
-
 }
