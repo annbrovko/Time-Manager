@@ -2,7 +2,6 @@ import org.joda.time.*;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import java.text.ParseException;
-import java.util.Scanner;
 
 public class TimeData {
     protected final float HOURS_PER_DATE = 24;
@@ -12,43 +11,14 @@ public class TimeData {
     protected float hoursLeftPerDay;
     protected float bufferTime;
 
-    Scanner userSetup = new Scanner(System.in);
-/*
-    public void TimeInputReceiver() {
-        System.out.print("Set minimum sleeping time: ");
-        minSleepingTimePerDay = this.userSetup.nextFloat();
-
-        System.out.print("Set daily work hours: ");
-        workHoursPerDay = this.userSetup.nextFloat();
-
-        System.out.print("Set break time: ");
-        breakTimePerDay = this.userSetup.nextFloat();
-    }
-
- */
-
     // convert deadline input into date&time of type DateTime
     public static DateTime convertToDate(String deadlineStr) throws ParseException {
         try {
             DateTimeFormatter formatterDate = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm");
-            DateTime deadline = formatterDate.parseDateTime(deadlineStr);
-            return deadline;
+            return formatterDate.parseDateTime(deadlineStr);
         }
         catch (Exception e){
             System.out.println("Wrong date type! Try again...");
-            return null;
-        }
-    }
-
-    // convert duration input into time of type DateTime
-    public static DateTime convertToTime(String durationStr) throws ParseException {
-        try {
-            DateTimeFormatter formatterTime = DateTimeFormat.forPattern("HH:mm");
-            DateTime duration = formatterTime.parseDateTime(durationStr);
-            return duration;
-        }
-        catch (Exception e){
-            System.out.println("Wrong time type! Try again...");
             return null;
         }
     }
@@ -62,10 +32,24 @@ public class TimeData {
         bufferTime = this.hoursLeftPerDay * (this.workHoursPerDay / HOURS_PER_DATE);
     }
 
-    public void ConvertToTime(float x) {
-        int hours = (int) x;
-        int minutes = (int) (x * 60) % 60;
-        int seconds = (int) (x * (60 * 60)) % 60;
-        System.out.println((String.format("%s(h) %s(m) %s(s)", hours, minutes, seconds)));
+    public void ConvertToTime(int x) {
+        int minutes = (x * 60) % 60;
+        int seconds = (x * (60 * 60)) % 60;
+        System.out.println((String.format("%s(h) %s(m) %s(s)", x, minutes, seconds)));
+    }
+
+    // takes input as minutes and converts it into days, hours and minutes
+    public String convertToHoursAndDays(int x) {
+        //since both are ints, you get an int
+        int days = x / 1440;
+        // subtracting days in minute equivalent co continue converting the resting minutes into hours and minutes
+        x -= days * 1440;
+        int hours = x / 60;
+        int minutes = x % 60;
+        String printResult = "";
+        if (days >= 1) printResult = printResult + days + " days ";
+        if (hours >= 1) printResult = printResult + hours + " hours ";
+        if (minutes >= 1) printResult = printResult + minutes + " minutes";
+        return printResult;
     }
 }
