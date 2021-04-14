@@ -100,7 +100,7 @@ public class Tasks {
             System.out.println("Add one more or exit?");
             userExit = scan.nextLine();
 
-            // add the entered task into the linkedlist of tasks
+            // add the entered task into the linkedList of tasks
             Task task = new Task(title, duration, priorityValue, deadline, latestStart);
             this.listOfTasks.add(task);
 
@@ -115,11 +115,12 @@ public class Tasks {
     public void showListOfTasks(){
         if (this.listOfTasks.isEmpty()){
             System.out.println("No tasks to show");
-            return;
+        } else {
+            // loop through the linkedList of tasks and print each of them
+            for (Object i:
+                    listOfTasks) {
+                System.out.println(i);
+            }
         }
-
-        // loop through the linkedlist of tasks and print each of them
-        for (int i = 0; i < this.listOfTasks.size(); i++)
-            System.out.println(this.listOfTasks.get(i));
     }
 }
