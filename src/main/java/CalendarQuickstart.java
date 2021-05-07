@@ -1,7 +1,4 @@
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
 import java.text.ParseException;
 import java.util.*;
@@ -48,7 +45,7 @@ public class CalendarQuickstart {
     */
 
 
-    public static void main(String... args) throws IOException, GeneralSecurityException, ParseException {
+    public static void main(String... args) throws Exception {
         // Build a new authorized API client service.
         /*
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
@@ -113,6 +110,7 @@ public class CalendarQuickstart {
 
             switch (userChoice) {
                 case "1":
+                    TimeInterval.getTimeInterval();
                     break;
                 case "2":
                     tasks.addTask();

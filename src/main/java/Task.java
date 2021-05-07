@@ -43,4 +43,6 @@ public class Task {
         // print a string with item data
         return "\nTask title: " + this.title + "\nTask priority: " + this.priority + "\nTask duration: " + timeData.convertToHoursAndDays(durationUser) + "\nTask deadline: " + printDeadline + "\nLatest start time: " + printLatestStart;
     }
+
+
 }

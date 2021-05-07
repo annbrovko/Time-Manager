@@ -12,16 +12,29 @@ public class TimeData {
     protected float bufferTime;
 
     // convert deadline input into date&time of type DateTime
-    public static DateTime convertToDate(String deadlineStr) throws ParseException {
+    public static DateTime convertToDate(String dateStr) throws ParseException {
         try {
             DateTimeFormatter formatterDate = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm");
-            return formatterDate.parseDateTime(deadlineStr);
+            return formatterDate.parseDateTime(dateStr);
+
         }
         catch (Exception e){
             System.out.println("Wrong date type! Try again...");
             return null;
         }
     }
+
+    public static DateTime convertToTime(String timeStr) throws ParseException {
+        try {
+                DateTimeFormatter formatterTimeStr = DateTimeFormat.forPattern("HH:mm");
+                return formatterTimeStr.parseDateTime(timeStr);
+        }
+        catch (Exception e){
+            System.out.println("Wrong time type! Try again...");
+            return null;
+        }
+    }
+
 
     // calculate buffer time for a task (event)
     public void BufferTimeCalculator() {
