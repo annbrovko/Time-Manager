@@ -1,7 +1,7 @@
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 
-public class Task {
+class Task {
     private final String title;
     private final int priority;
     private final Duration duration;
@@ -15,11 +15,13 @@ public class Task {
         this.deadline = deadline;
         this.priority = priority;
         this.latestStart = latestStart;
+        deadline.compareTo(latestStart);
     }
-/*
+
     public String getTitle(){
         return this.title;
     }
+
     public Duration getDuration(){
         return this.duration;
     }
@@ -27,7 +29,24 @@ public class Task {
         return this.priority;
     }
     public DateTime getDeadline(){ return this.deadline; }
-*/
+
+    public DateTime getLatestStart(){
+        return this.latestStart;
+    }
+
+    /*
+    @Override
+    public int compareTo(Task otherTask){
+        return this.title.compareTo(otherTask.getTitle());
+    }
+
+
+    @Override
+    public int compareTo(Task otherTask){
+        return this.deadline.compareTo(otherTask.getDeadline());
+    }
+    */
+
     TimeData timeData = new TimeData();
 
     // convert list to string

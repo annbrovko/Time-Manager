@@ -12,9 +12,20 @@ public class TimeData {
     protected float bufferTime;
 
     // convert deadline input into date&time of type DateTime
-    public static DateTime convertToDate(String deadlineStr) throws ParseException {
+    public static DateTime convertToDate(String deadlineStr) {
         try {
             DateTimeFormatter formatterDate = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm");
+            return formatterDate.parseDateTime(deadlineStr);
+        }
+        catch (Exception e){
+            System.out.println("Wrong date type! Try again...");
+            return null;
+        }
+    }
+
+    public static DateTime convertToTime(String deadlineStr) {
+        try {
+            DateTimeFormatter formatterDate = DateTimeFormat.forPattern("HH:mm");
             return formatterDate.parseDateTime(deadlineStr);
         }
         catch (Exception e){
