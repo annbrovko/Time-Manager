@@ -96,9 +96,9 @@ public class CalendarQuickstart {
 */
         Tasks tasks = new Tasks();
         CalendarEvents calendarEvents = new CalendarEvents();
+        TimeInterval timeInterval = new TimeInterval();
 
         Scanner scan = new Scanner(System.in);
-
 
         boolean exit = false;
 
@@ -110,7 +110,7 @@ public class CalendarQuickstart {
 
             switch (userChoice) {
                 case "1":
-                    TimeInterval.getTimeInterval();
+                    timeInterval.getTimeInterval();
                     break;
                 case "2":
                     tasks.addTask();

@@ -1,4 +1,5 @@
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.Duration;
 
 public class Task {
@@ -7,6 +8,7 @@ public class Task {
     private final Duration duration;
     private final DateTime deadline;
     private final DateTime latestStart;
+    TimeData timeData = new TimeData();
 
     // create an object Task with four properties title, duration, priority and deadline
     public Task (String title, Duration duration, int priority, DateTime deadline, DateTime latestStart){
@@ -16,19 +18,11 @@ public class Task {
         this.priority = priority;
         this.latestStart = latestStart;
     }
-/*
-    public String getTitle(){
-        return this.title;
-    }
-    public Duration getDuration(){
-        return this.duration;
-    }
-    public int getPriority(){
-        return this.priority;
-    }
+
+    public String getTitle(){ return this.title; }
+    public Duration getDuration(){ return this.duration; }
+    public int getPriority(){ return this.priority; }
     public DateTime getDeadline(){ return this.deadline; }
-*/
-    TimeData timeData = new TimeData();
 
     // convert list to string
     public String toString(){
@@ -44,5 +38,7 @@ public class Task {
         return "\nTask title: " + this.title + "\nTask priority: " + this.priority + "\nTask duration: " + timeData.convertToHoursAndDays(durationUser) + "\nTask deadline: " + printDeadline + "\nLatest start time: " + printLatestStart;
     }
 
-
+    public DateTime getLatestStart() {
+        return this.latestStart;
+    }
 }

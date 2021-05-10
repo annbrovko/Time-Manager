@@ -1,5 +1,6 @@
 import org.joda.time.*;
 import java.text.ParseException;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -103,7 +104,19 @@ public class Tasks {
             // add the entered task into the linkedList of tasks
             Task task = new Task(title, duration, priorityValue, deadline, latestStart);
             this.listOfTasks.add(task);
-
+            listOfTasks.sort(new Comparator <Task>() {
+                @Override
+                public int compare(Task task1, Task task2) {
+                    int comparison = 0;
+                    comparison = task1.getDuration().compareTo(task2.getDuration());
+                    if (comparison == 0){
+                        comparison = task1.getDeadline().compareTo(task2.getDeadline());
+                    } else if (comparison == 0){
+                        comparison = task1.getLatestStart().compareTo(task2.getLatestStart());
+                    }
+                    return comparison;
+                }
+            });
             // quit the method to the main menu
                 if (userExit.equals("exit")) {
                     exit = true;

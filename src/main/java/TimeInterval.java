@@ -1,5 +1,6 @@
 import org.joda.time.DateTime;
 import org.joda.time.Period;
+import org.joda.time.format.PeriodFormatter;
 
 import java.util.Scanner;
 
@@ -7,9 +8,7 @@ class TimeInterval {
     DateTime start;
     DateTime end;
 
-    public TimeInterval(DateTime start, DateTime end) {
-        this.start = start;
-        this.end = end;
+    public TimeInterval() {
     }
 
     public DateTime getStart(){
@@ -19,39 +18,33 @@ class TimeInterval {
         return this.end;
     }
 
-   
+    Scanner scan = new Scanner(System.in);
 
-    public static void getTimeInterval() throws Exception{
-        Scanner scan = new Scanner(System.in);
-        DateTime start = new DateTime();
-        DateTime end = new DateTime();
-        TimeInterval interval = new TimeInterval(start, end);
-
+    public void getTimeInterval() {
         Period periodInterval = null;
-
+        TimeData converter = new TimeData();
         do {
             try {
                 System.out.println("Set the interval on the timespan where you can work in a day: ");
 
                 System.out.println("Set the start interval (HH:MM): ");
                 String startStr = scan.nextLine();
-                start = TimeData.convertToTime(startStr);
+                this.start = TimeData.convertToTime(startStr);
 
                 System.out.println("Set the end interval (HH:MM): ");
                 String endStr = scan.nextLine();
-                end = TimeData.convertToTime(endStr);
+                this.end = TimeData.convertToTime(endStr);
 
-                periodInterval = new Period(start, end);
+                periodInterval = new Period(this.start, this.end);
+                String periodStr = periodInterval.toString();
 
-                System.out.println("Interval = " + periodInterval);
-                System.out.println("Start    = " + interval.getStart());
-                System.out.println("End      = " + interval.getEnd());
-
+                System.out.println("Interval = " + converter.convertToTime(periodStr));
+                System.out.println("Start    = " + getStart().toString("HH:mm"));
+                System.out.println("End      = " + getEnd().toString("HH:mm"));
 
             } catch (Exception e){
                 System.out.println("Wrong format! Please try again...");
             }
         } while(periodInterval == null);
-
     }
 }
