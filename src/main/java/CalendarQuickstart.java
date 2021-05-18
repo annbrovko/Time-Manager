@@ -116,6 +116,8 @@ public class CalendarQuickstart {
                     tasks.addTask();
                     break;
                 case "3":
+                    //TODO call a function to send the task to the calendar
+                    tasks.handleTasksToCalendar();
                     break;
                 case "4":
                     tasks.showListOfTasks();

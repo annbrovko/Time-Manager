@@ -1,8 +1,7 @@
+import com.google.api.services.calendar.model.Event;
 import org.joda.time.*;
 import java.text.ParseException;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.Scanner;
+import java.util.*;
 
 public class Tasks {
 
@@ -27,6 +26,7 @@ public class Tasks {
 
     // create a linked list to store tasks entered by the user
     LinkedList listOfTasks = new LinkedList();
+    GoogleCalendar googleCalendar = new GoogleCalendar();
 
     String title;
     String userExit;
@@ -137,4 +137,21 @@ public class Tasks {
         }
     }
 
+    public void handleTasksToCalendar()
+    {
+        //TODO 1.- Foreach list of tasks and call the push to the calendar for each task
+        //TODO 2.- When foreach task, we need to get all events from tomorrow til the deadline od the task
+        //TODO 3.- Get intervals per day where we can place the task and subtract the hours from the duration of the task
+        //TODO 4.- When doing the calculations we need to push the mini tasks.
+        for (Object i:
+                listOfTasks) {
+            try {
+                //TODO get all events from the calendar from tomorrow til the deadline of the task
+                List<Event> calendarEvents = this.googleCalendar.getEvents("cs.semesterproject@gmail.com");
+                //Get intervals when tasks can be added
+                //1.- For each of the days get hours from the already set interval by the user where there are no tasks
+            } catch (Exception e) {
+            }
+        }
+    }
 }

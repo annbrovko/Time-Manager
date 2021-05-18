@@ -1,4 +1,5 @@
 import org.joda.time.DateTime;
+import org.joda.time.Interval;
 import org.joda.time.Period;
 import org.joda.time.format.PeriodFormatter;
 
@@ -21,7 +22,7 @@ class TimeInterval {
     Scanner scan = new Scanner(System.in);
 
     public void getTimeInterval() {
-        Period periodInterval = null;
+        Interval periodInterval = null;
         TimeData converter = new TimeData();
         do {
             try {
@@ -35,10 +36,10 @@ class TimeInterval {
                 String endStr = scan.nextLine();
                 this.end = TimeData.convertToTime(endStr);
 
-                periodInterval = new Period(this.start, this.end);
+                periodInterval = new Interval(this.start, this.end);
                 String periodStr = periodInterval.toString();
 
-                System.out.println("Interval = " + converter.convertToTime(periodStr));
+                //System.out.println("Interval = " + converter.convertToTime(periodStr));
                 System.out.println("Start    = " + getStart().toString("HH:mm"));
                 System.out.println("End      = " + getEnd().toString("HH:mm"));
 
