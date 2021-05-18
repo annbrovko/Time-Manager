@@ -62,7 +62,8 @@ public class Tasks {
                     int minutes = Integer.parseInt(exploded[1]);
                     long hoursMillis = (long)hours * MILLIS_IN_HOUR;
                     long minutesMillis = (long)minutes * MILLIS_IN_MIN;
-                    duration = new Duration(hoursMillis + minutesMillis);
+                    // new duration incl. buffer time of 20% of the task duration
+                    duration = new Duration((hoursMillis + minutesMillis)/100*120);
                 } catch (Exception e){
                     System.out.println("Something went wrong! Try again...");
                 }
