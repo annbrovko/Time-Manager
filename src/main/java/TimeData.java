@@ -25,7 +25,7 @@ public class TimeData {
         }
         catch (Exception e){
             System.out.println("Wrong time type! Try again...");
-            return null;
+            throw e;
         }
     }
 

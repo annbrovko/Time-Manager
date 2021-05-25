@@ -138,7 +138,7 @@ public class Tasks {
         }
     }
 
-    public void handleTasksToCalendar()
+    public void handleTasksToCalendar(int[] hours)
     {
         //TODO 1.- Foreach list of tasks and call the push to the calendar for each task
         //TODO 2.- When foreach task, we need to get all events from tomorrow til the deadline od the task
@@ -148,11 +148,34 @@ public class Tasks {
                 listOfTasks) {
             try {
                 //TODO get all events from the calendar from tomorrow til the deadline of the task
-                List<Event> calendarEvents = this.googleCalendar.getEvents("cs.semesterproject@gmail.com");
+                DateTime now = new DateTime();
+                LocalDate today = now.toLocalDate();
+                LocalDate tomorrow = today.plusDays(1);
+                DateTime start = tomorrow.toDateTimeAtStartOfDay(now.getZone());
+                Days days = Days.daysBetween(start.toLocalDate(), this.deadline.toLocalDate());
+                int daysCount = days.getDays();
+                DateTime end = start.plusDays(daysCount);
+                List<Event> calendarEvents = this.googleCalendar.getEvents("cs.semesterproject@gmail.com", start.getMillis(), end.getMillis());
+                for (int u = 0; u <= daysCount; u++){
+                    DateTime currentDate = start.plusDays(u);
+                    int currentHour = hours[0];
+                    do{
+
+
+                    }
+                    while (currentHour <= hours[1]);
+                }
+
                 //Get intervals when tasks can be added
                 //1.- For each of the days get hours from the already set interval by the user where there are no tasks
             } catch (Exception e) {
+
             }
         }
     }
+/*
+    public int getEndOfAvailableHours(){
+
+    }
+ */
 }

@@ -1,5 +1,4 @@
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 import org.joda.time.Duration;
 
 public class Task {
@@ -10,7 +9,7 @@ public class Task {
     private final DateTime latestStart;
     TimeData timeData = new TimeData();
 
-    // create an object Task with four properties title, duration, priority and deadline
+    // create an object Task with five properties title, duration, priority, deadline and latest start
     public Task (String title, Duration duration, int priority, DateTime deadline, DateTime latestStart){
         this.title = title;
         this.duration = duration;

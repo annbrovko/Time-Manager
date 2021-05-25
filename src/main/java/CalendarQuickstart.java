@@ -97,6 +97,7 @@ public class CalendarQuickstart {
         Tasks tasks = new Tasks();
         CalendarEvents calendarEvents = new CalendarEvents();
         TimeInterval timeInterval = new TimeInterval();
+        int[] hours = new int[2];
 
         Scanner scan = new Scanner(System.in);
 
@@ -110,14 +111,14 @@ public class CalendarQuickstart {
 
             switch (userChoice) {
                 case "1":
-                    timeInterval.getTimeInterval();
+                    hours = timeInterval.getTimeInterval();
                     break;
                 case "2":
                     tasks.addTask();
                     break;
                 case "3":
                     //TODO call a function to send the task to the calendar
-                    tasks.handleTasksToCalendar();
+                    tasks.handleTasksToCalendar(hours);
                     break;
                 case "4":
                     tasks.showListOfTasks();

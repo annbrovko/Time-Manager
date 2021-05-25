@@ -83,10 +83,10 @@ public class GoogleCalendar {
 
         return event;
     }
-
-    public List<Event> getEvents(String idCalendar) throws IOException {
-        DateTime current = new DateTime(System.currentTimeMillis());
-        DateTime added = new DateTime(System.currentTimeMillis() + 1209600000);
+// using long instead of JodaTime as the event should be sent to the google calendar which uses google datetime
+    public List<Event> getEvents(String idCalendar, long start, long end) throws IOException {
+        DateTime current = new DateTime(start);
+        DateTime added = new DateTime(end);
         try {
             Events events = service.events().list(idCalendar)
                     .setTimeMin(current)
