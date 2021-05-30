@@ -1,65 +1,52 @@
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
-import org.joda.time.Period;
-import org.joda.time.format.PeriodFormatter;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.Scanner;
 
 class TimeInterval {
     DateTime start;
     DateTime end;
 
-    public TimeInterval() {
-    }
-
-    public DateTime getStart(){
-        return this.start;
-    }
+    public DateTime getStart(){ return this.start; }
     public DateTime getEnd(){
         return this.end;
     }
 
     Scanner scan = new Scanner(System.in);
 
-    public int[] getTimeInterval() {
+    public int[] setTimeInterval() {
         Interval periodInterval = null;
-        TimeData converter = new TimeData();
         int[] dayInterval = new int[2];
         do {
             try {
-                System.out.println("Set the interval on the timespan where you can work in a day: ");
+                System.out.println("Set a time interval when you can work during a day: ");
                 boolean validStart = false;
                 do {
                     try {
-                        System.out.println("Set the start interval (HH:MM): ");
+                        System.out.println("Set the start hour (HH): ");
                         String startStr = scan.nextLine();
-                        System.out.println(startStr);
-                        this.start = TimeData.convertToTime(startStr);
+                        this.start = TimeData.convertToHour(startStr);
                         validStart = true;
                     } catch (Exception e){
                         System.out.println("Wrong start time! Try again...");
-                    };
+                    }
                 } while (!validStart);
 
                 boolean validEnd = false;
                 do {
                     try {
-                        System.out.println("Set the end interval (HH:MM): ");
+                        System.out.println("Set the end hour (HH): ");
                         String endStr = scan.nextLine();
-                        this.end = TimeData.convertToTime(endStr);
+                        this.end = TimeData.convertToHour(endStr);
                         validEnd = true;
                     }catch (Exception e){
                         System.out.println("Wrong end time! Try again...");
                     }
                 } while (!validEnd);
-
                 periodInterval = new Interval(this.start, this.end);
-
                 dayInterval[0] = Integer.parseInt(getStart().toString("HH"));
                 dayInterval[1] = Integer.parseInt(getEnd().toString("HH"));
-
+                System.out.println("Your working time will start at " + dayInterval[0] + " and end at " + dayInterval[1]);
             } catch (Exception e){
                 System.out.println("Wrong format! Please try again...");
             }

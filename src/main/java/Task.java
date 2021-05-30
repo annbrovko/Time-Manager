@@ -6,16 +6,14 @@ public class Task {
     private final int priority;
     private final Duration duration;
     private final DateTime deadline;
-    private final DateTime latestStart;
     TimeData timeData = new TimeData();
 
     // create an object Task with five properties title, duration, priority, deadline and latest start
-    public Task (String title, Duration duration, int priority, DateTime deadline, DateTime latestStart){
+    public Task (String title, Duration duration, int priority, DateTime deadline){
         this.title = title;
         this.duration = duration;
         this.deadline = deadline;
         this.priority = priority;
-        this.latestStart = latestStart;
     }
 
     public String getTitle(){ return this.title; }
@@ -31,13 +29,7 @@ public class Task {
         String durationToMinutes = this.duration.toStandardMinutes().toString();
         String clean = durationToMinutes.replaceAll("\\D+","");
         int durationUser = Integer.parseInt(clean);
-        // format latest start for print
-        String printLatestStart = this.latestStart.toString("dd/MM/yyyy HH:mm");
         // print a string with item data
-        return "\nTask title: " + this.title + "\nTask priority: " + this.priority + "\nTask duration: " + timeData.convertToHoursAndDays(durationUser) + "\nTask deadline: " + printDeadline + "\nLatest start time: " + printLatestStart;
-    }
-
-    public DateTime getLatestStart() {
-        return this.latestStart;
+        return "\nTask title: " + this.title + "\nTask priority: " + this.priority + "\nTask duration: " + timeData.convertToHoursAndDays(durationUser) + "\nTask deadline: " + printDeadline;
     }
 }

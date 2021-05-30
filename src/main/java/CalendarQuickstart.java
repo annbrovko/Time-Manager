@@ -1,6 +1,4 @@
 import java.io.IOException;
-import java.security.GeneralSecurityException;
-import java.text.ParseException;
 import java.util.*;
 
 public class CalendarQuickstart {
@@ -46,56 +44,8 @@ public class CalendarQuickstart {
 
 
     public static void main(String... args) throws Exception {
-        // Build a new authorized API client service.
-        /*
-        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-        Calendar service = new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
-                .setApplicationName(APPLICATION_NAME)
-                .build();
 
-        //initializing the object TimeData
-        TimeData timeData = new TimeData();
-
-        //calculating buffer time out of user input and converting the time to hours, minutes and seconds
-        timeData.TimeInputReceiver();
-        timeData.BufferTimeCalculator();
-        System.out.print("Free time left in a day: ");
-        timeData.ConvertToTime(timeData.hoursLeftPerDay);
-        System.out.print("Your buffer time is: ");
-        timeData.ConvertToTime(timeData.bufferTime);
-
-        CalendarList calList = service.calendarList().list().execute();
-
-        List<CalendarListEntry> listCal = calList.getItems();
-
-        for (CalendarListEntry entry : listCal) {
-        System.out.println("Calendar: " + entry.getId());
-        // List the next 2 weeks events from all calendars.
-        DateTime current = new DateTime(System.currentTimeMillis());
-        DateTime added = new DateTime(System.currentTimeMillis() + 1209600000);
-        Events events = service.events().list(entry.getId())
-                .setTimeMin(current)
-                .setTimeMax(added)
-                .setOrderBy("startTime")
-                .setSingleEvents(true)
-                .execute();
-        List<Event> items = events.getItems();
-        if (items.isEmpty()) {
-            System.out.println("No upcoming events found.");
-        } else {
-            System.out.println("Upcoming events");
-            for (Event event : items) {
-                DateTime start = event.getStart().getDateTime();
-                if (start == null) {
-                    start = event.getStart().getDate();
-                }
-                System.out.printf("%s (%s)\n", event.getSummary(), start);
-            }
-        }
-    }
-*/
         Tasks tasks = new Tasks();
-        CalendarEvents calendarEvents = new CalendarEvents();
         TimeInterval timeInterval = new TimeInterval();
         int[] hours = new int[2];
 
@@ -111,7 +61,7 @@ public class CalendarQuickstart {
 
             switch (userChoice) {
                 case "1":
-                    hours = timeInterval.getTimeInterval();
+                    hours = timeInterval.setTimeInterval();
                     break;
                 case "2":
                     tasks.addTask();
@@ -132,15 +82,10 @@ public class CalendarQuickstart {
                     break;
             }
         }
-/*
-        // push new event to the calendar
-        CalendarEvents calendarEvents = new CalendarEvents();
-        calendarEvents.createEvent();
- */
     }
 
     public static void renderMenu(){
-        System.out.println("Scheduling Menu");
+        System.out.println("\nScheduling Menu\n");
         System.out.println("1. Set you working time interval");
         System.out.println("2. Add new task");
         System.out.println("3. Send tasks to the calendar");

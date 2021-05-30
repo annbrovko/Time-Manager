@@ -11,8 +11,7 @@ import com.google.api.client.util.DateTime;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.CalendarScopes;
-import com.google.api.services.calendar.model.Event;
-import com.google.api.services.calendar.model.Events;
+import com.google.api.services.calendar.model.*;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -36,8 +35,7 @@ public class GoogleCalendar {
 
     public Calendar service;
 
-    public GoogleCalendar()
-    {
+    public GoogleCalendar() throws IOException {
         // Build a new authorized API client service.
         final NetHttpTransport HTTP_TRANSPORT;
         try {
@@ -83,7 +81,8 @@ public class GoogleCalendar {
 
         return event;
     }
-// using long instead of JodaTime as the event should be sent to the google calendar which uses google datetime
+
+    // using long instead of JodaTime as the event should be sent to the Google Calendar which uses Google DateTime
     public List<Event> getEvents(String idCalendar, long start, long end) throws IOException {
         DateTime current = new DateTime(start);
         DateTime added = new DateTime(end);
@@ -95,9 +94,50 @@ public class GoogleCalendar {
                     .setSingleEvents(true)
                     .execute();
             List<Event> items = events.getItems();
+            if (items.isEmpty()) {
+                System.out.println("No upcoming events found.");
+            } else {
+                System.out.println("Upcoming events");
+                for (Event event : items) {
+                    event.get(event);
+                    System.out.println(event.getSummary());
+                }
+            }
             return items;
         } catch (Exception e) {
             throw e;
         }
+    }
+
+    public void sendEventToCalendar(DateTime startDate, DateTime endDate, String title) throws IOException {
+        GoogleCalendar googleCalendar = new GoogleCalendar();
+
+        Event newEvent = googleCalendar.initiateGoogleEvent(title);
+        newEvent = setStartDate(newEvent, startDate);
+        newEvent = setEndDate(newEvent, endDate);
+
+        try {
+            googleCalendar.service.events().insert("cs.semesterproject@gmail.com", newEvent).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Event setStartDate(Event event, DateTime startDateTime)
+    {
+        EventDateTime start = new EventDateTime()
+                .setDateTime(startDateTime)
+                .setTimeZone("CET");
+        event.setStart(start);
+        return event;
+    }
+
+    private Event setEndDate(Event event, DateTime endDateTime)
+    {
+        EventDateTime end = new EventDateTime()
+                .setDateTime(endDateTime)
+                .setTimeZone("CET");
+        event.setEnd(end);
+        return event;
     }
 }

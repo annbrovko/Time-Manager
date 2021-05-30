@@ -8,20 +8,19 @@ public class TimeData {
     // convert deadline input into date&time of type DateTime
     public static DateTime convertToDate(String dateStr) throws ParseException {
         try {
-            DateTimeFormatter formatterDate = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm");
+            DateTimeFormatter formatterDate = DateTimeFormat.forPattern("dd/MM/yyyy");
             return formatterDate.parseDateTime(dateStr);
-
         }
         catch (Exception e){
             System.out.println("Wrong date type! Try again...");
-            return null;
+            throw e;
         }
     }
 
-    public static DateTime convertToTime(String timeStr) throws ParseException {
+    public static DateTime convertToHour(String hourStr) throws ParseException {
         try {
-                DateTimeFormatter formatterTimeStr = DateTimeFormat.forPattern("HH:mm");
-                return formatterTimeStr.parseDateTime(timeStr);
+            DateTimeFormatter formatterTimeStr = DateTimeFormat.forPattern("HH");
+            return formatterTimeStr.parseDateTime(hourStr);
         }
         catch (Exception e){
             System.out.println("Wrong time type! Try again...");
