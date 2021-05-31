@@ -101,9 +101,9 @@ public class Tasks {
                 @Override
                 public int compare(Task task1, Task task2) {
                     int comparison = 0;
-                    comparison = Integer.compare(task1.getPriority(), task2.getPriority());
+                    comparison = task1.getDeadline().compareTo(task2.getDeadline());
                     if (comparison == 0){
-                        comparison = task1.getDeadline().compareTo(task2.getDeadline());
+                        comparison = Integer.compare(task1.getPriority(), task2.getPriority());
                     } else if (comparison == 0){
                         comparison = task1.getDuration().compareTo(task2.getDuration());
                     }
