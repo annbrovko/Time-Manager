@@ -1,10 +1,8 @@
 import java.util.Scanner;
-import java.util.Random;
 
 public class User implements TimeManagement {
 
     Scanner scanner = new Scanner(System.in);
-    Random random = new Random();
 
     protected String username;
     protected String name;

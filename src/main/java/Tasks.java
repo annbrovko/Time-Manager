@@ -159,9 +159,11 @@ public class Tasks {
                     DateTime endOfDay = currentDate.plusMinutes(1439);
                     // start of the work time interval in the current day - user defined
                     int currentHour = hours[0];
-                    // create an array of 2 positions for the available slots in the calendar inside of work time interval with start and end hour
+                    // create an array of 2 positions for the available slots in the calendar
+                    // inside of work time interval with start and end hour
                     int[] currentFreeHours = new int[2];
-                    // initialize the start of available time interval with the hour of work time interval, and the end hour is not yet found
+                    // initialize the start of available time interval
+                    // with the hour of work time interval, and the end hour is not yet found
                     currentFreeHours[0] = currentHour;
                     currentFreeHours[1] = -1;
                     // create an 2D arraylist to store free hours found in the calendar within the work time interval
@@ -174,20 +176,20 @@ public class Tasks {
                         if (calendarEvents.isEmpty()) {
                             currentFreeHours[1] = currentHour + 1;
                         } else {
-                            //TODO do I have a task that starts at this hour???
+                            // check if there is a task that starts at this hour
                             int hourEndOfTask = eventStartsAtHour(calendarEvents, currentHour);
                             if (hourEndOfTask < 0) {
-                                //TODO means that there is no task that starts at this hour and it is a free hour in the calendar
+                                // means that there is no task that starts at this hour and it is a free hour in the calendar
                                 currentFreeHours[1] = currentHour + 1;
                             } else {
-                                //TODO means that there is a task starting at this hour and the returned value is the value of the end hour of the task
+                                // means that there is a task starting at this hour and the returned value is the value of the end hour of the task
                                 if(currentFreeHours[1] >= 0) {
                                     int[] hoursRange = {currentFreeHours[0], currentFreeHours[1]};
                                     freeHours.add(hoursRange);
                                 }
 
                                 currentHour = hourEndOfTask;
-                                //TODO means that the start hour should change for the current hour and the range of free hours finished and the task should be pushed
+                                // means that the start hour should change for the current hour and the range of free hours finished and the task should be pushed
                                 currentFreeHours[0] = currentHour;
                                 currentFreeHours[1] = -1;
                                 continue;

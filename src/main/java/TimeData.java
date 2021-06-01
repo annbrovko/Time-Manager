@@ -5,7 +5,7 @@ import java.text.ParseException;
 
 public class TimeData {
 
-    // convert deadline input into date&time of type DateTime
+    // convert deadline input into date of type DateTime
     public static DateTime convertToDate(String dateStr) throws ParseException {
         try {
             DateTimeFormatter formatterDate = DateTimeFormat.forPattern("dd/MM/yyyy");
@@ -17,6 +17,7 @@ public class TimeData {
         }
     }
 
+    // convert interval input into date of type DateTime
     public static DateTime convertToHour(String hourStr) throws ParseException {
         try {
             DateTimeFormatter formatterTimeStr = DateTimeFormat.forPattern("HH");

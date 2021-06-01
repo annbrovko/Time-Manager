@@ -52,7 +52,6 @@ public class CalendarQuickstart {
         Scanner scan = new Scanner(System.in);
 
         boolean exit = false;
-
         String userChoice;
         // create main menu for the user
         while (!exit) {
@@ -67,7 +66,7 @@ public class CalendarQuickstart {
                     tasks.addTask();
                     break;
                 case "3":
-                    //TODO call a function to send the task to the calendar
+                    //call a function to send the task to the calendar
                     tasks.handleTasksToCalendar(hours);
                     break;
                 case "4":

@@ -28,7 +28,6 @@ class TimeInterval {
                         this.start = TimeData.convertToHour(startStr);
                         validStart = true;
                     } catch (Exception e){
-                        System.out.println("Wrong start time! Try again...");
                     }
                 } while (!validStart);
 
@@ -40,9 +39,9 @@ class TimeInterval {
                         this.end = TimeData.convertToHour(endStr);
                         validEnd = true;
                     }catch (Exception e){
-                        System.out.println("Wrong end time! Try again...");
                     }
                 } while (!validEnd);
+
                 periodInterval = new Interval(this.start, this.end);
                 dayInterval[0] = Integer.parseInt(getStart().toString("HH"));
                 dayInterval[1] = Integer.parseInt(getEnd().toString("HH"));
